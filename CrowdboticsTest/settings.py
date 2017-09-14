@@ -25,7 +25,7 @@ SECRET_KEY = '195@^&m3i($e*zr@@k1(^rpb^e5@b8+q5m!7=03xibeid=37p#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crowdboticstest.herokuapp.com']
 
 
 # Application definition
