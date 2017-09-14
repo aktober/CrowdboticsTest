@@ -1,6 +1,9 @@
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import Permission
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import generic
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from app import forms
 
 
@@ -11,7 +14,15 @@ class HomePage(generic.View):
 
 class LoginPage(generic.View):
     def get(self, request):
-        return HttpResponse('login page')
+        return render(request, 'app/login.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+        return HttpResponseRedirect(reverse('home'))
 
 
 class RegisterPage(generic.View):
@@ -33,6 +44,15 @@ class RegisterPage(generic.View):
 
             owner = ownerForm.save(commit=False)
             owner.user = user
+            perm1 = Permission.objects.get(name='Can change dog')
+            perm2 = Permission.objects.get(name='Can delete dog')
+            perm3 = Permission.objects.get(name='Can add dog')
+            perm4 = Permission.objects.get(name='Can change cat')
+            perm5 = Permission.objects.get(name='Can delete cat')
+            perm6 = Permission.objects.get(name='Can add cat')
+            user.user_permissions.add(perm1, perm2, perm3, perm4, perm5, perm6)
             owner.save()
+
+
 
         return render(request, 'app/register.html', {'registered': True})

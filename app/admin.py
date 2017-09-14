@@ -2,18 +2,31 @@ from django.contrib import admin
 from app import models
 
 
-admin.site.register(models.Cat)
+@admin.register(models.Cat)
+class CatAdmin(admin.ModelAdmin):
+    list_display = ('name', 'birthday', 'owner')
 
-admin.site.register(models.Dog)
+    def get_queryset(self, request):
+        qs = super(CatAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(owner__user=request.user)
+
+
+@admin.register(models.Dog)
+class DogAdmin(admin.ModelAdmin):
+    list_display = ('name', 'birthday', 'owner')
+
+    def get_queryset(self, request):
+        qs = super(DogAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(owner__user=request.user)
 
 
 class OwnerAdmin(admin.ModelAdmin):
-
-    def queryset(self, request):
-        qs = super(OwnerAdmin, self).queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(user=request.user)
+    list_display = ('name', )
+    fields = ['name', ]
 
 
 admin.site.register(models.Owner, OwnerAdmin)
