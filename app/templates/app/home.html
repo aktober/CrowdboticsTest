@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Home page</h1>
+{% extends 'app/base.html' %}
 
-{% if request.user.is_authenticated %}
-    <h2>Welcome, {{ request.user.username }}</h2>
-    <a href="{% url 'api-dogs-list' %}">Dog list</a><br>
-    <a href="{% url 'api-cats-list' %}">Cat list</a><br>
-{% else %}
-    <a href="{% url 'login' %}">Login</a><br>
-    <a href="{% url 'register' %}">Register</a><br>
-{% endif %}
-</body>
-</html>
+{% block content %}
+
+    <h1>Home page</h1>
+    {% if request.user.is_authenticated %}
+        <h2>Welcome, {{ request.user.username }}</h2>
+        <a href="{% url 'api-dogs-list' %}">Dog list</a><br>
+        <a href="{% url 'api-cats-list' %}">Cat list</a><br>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a><br>
+        <a href="{% url 'register' %}">Register</a><br>
+    {% endif %}
+
+{% endblock %}
+
+

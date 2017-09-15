@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'app/base.html' %}
 
-{% if not registered %}
-<form method="post" action="{% url 'register' %}">
-    {% csrf_token %}
-    {{ user.as_p }}
-    {{ owner.as_p }}
-    <input type="submit" value="Register">
-</form>
-{% else %}
-    You are registered. Please login
-{% endif %}
+{% block content %}
 
-</body>
-</html>
+    {% if not registered %}
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ user.as_p }}
+            {{ owner.as_p }}
+            <input type="submit" value="Register">
+        </form>
+    {% else %}
+        You are registered. Please login
+    {% endif %}
+
+{% endblock %}
