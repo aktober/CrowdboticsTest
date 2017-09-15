@@ -2,15 +2,36 @@
 
 {% block content %}
 
-    {% if not registered %}
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            {{ user.as_p }}
-            {{ owner.as_p }}
-            <input type="submit" value="Register">
-        </form>
-    {% else %}
-        You are registered. Please <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+    <div class="jumbotron">
+        {% if not registered %}
+
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <div class="form-group" align="center">
+                    <div class="input-group">
+                        <label>Username</label>
+                        {{ user.username }}
+                    </div>
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        {{ user.email }}
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        {{ user.password }}
+                    </div>
+                    <div class="input-group">
+                        <label>Full name</label>
+                        {{ owner.name }}
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Register">
+            </form>
+
+
+        {% else %}
+            Thanks for registering. Now you can <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
 
 {% endblock %}

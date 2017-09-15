@@ -2,12 +2,14 @@
 
 {% block content %}
 
-    <h2>Please login</h2>
-    <form method="POST" action="{% url 'login' %}">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="username"/>
-        <input type="password" name="password" placeholder="password"/>
-        <input type="submit" value="Login">
-    </form>
+    <div class="jumbotron" align="center">
+        <h2 align="center">Please login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="username"/>
+            <input type="password" name="password" placeholder="password"/>
+            <input type="submit" class="btn btn-primary" value="Login">
+        </form>
+    </div>
 
 {% endblock %}
