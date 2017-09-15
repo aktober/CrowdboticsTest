@@ -10,7 +10,7 @@
             <input type="submit" value="Register">
         </form>
     {% else %}
-        You are registered. Please login
+        You are registered. Please <a href="{% url 'login' %}">Login</a>
     {% endif %}
 
 {% endblock %}

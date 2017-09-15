@@ -1,15 +1,27 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import Permission
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django.http import HttpResponse, HttpResponseRedirect
 from app import forms
+from app import models
 
 
 class HomePage(generic.View):
     def get(self, request):
-        return render(request, 'app/home.html')
+        context = {}
+        if request.user.is_authenticated:
+            dogs = models.Dog.objects.filter(owner__user=request.user)
+            cats = models.Cat.objects.filter(owner__user=request.user)
+            context['dogs'] = dogs
+            context['cats'] = cats
+        return render(request, 'app/home.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
 
 
 class LoginPage(generic.View):

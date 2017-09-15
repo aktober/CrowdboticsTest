@@ -22,6 +22,7 @@ from app.api import views as api_views
 urlpatterns = [
     url(r'^$', views.HomePage.as_view(), name='home'),
     url(r'^login/$', views.LoginPage.as_view(), name='login'),
+    url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^register/$', views.RegisterPage.as_view(), name='register'),
     url(r'^admin/', admin.site.urls),
 

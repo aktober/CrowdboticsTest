@@ -14,6 +14,5 @@ from whitenoise.django import DjangoWhiteNoise
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CrowdboticsTest.settings")
 
-# application = get_wsgi_application()
 # for Heroku
 application = DjangoWhiteNoise(get_wsgi_application())

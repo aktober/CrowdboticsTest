@@ -6,7 +6,17 @@
     {% if request.user.is_authenticated %}
         <h2>Welcome, {{ request.user.username }}</h2>
         <a href="{% url 'api-dogs-list' %}">Dog list</a><br>
+        {% for dog in dogs %}
+            <a href="{% url 'api-dog' pk=dog.pk %}">Edit {{ dog.name }}</a><br>
+        {% endfor %}
+        <br>
         <a href="{% url 'api-cats-list' %}">Cat list</a><br>
+        {% for cat in cats %}
+            <a href="{% url 'api-cat' pk=cat.pk %}">Edit {{ cat.name }}</a><br>
+        {% endfor %}
+
+        <br>
+        <a href="{% url 'logout' %}">Logout</a><br>
     {% else %}
         <a href="{% url 'login' %}">Login</a><br>
         <a href="{% url 'register' %}">Register</a><br>
